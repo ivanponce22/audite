@@ -71,13 +71,20 @@ WSGI_APPLICATION = 'audite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
+# method for get environment variables
+def get_env_variable(var_name):
+    try:
+        return os.environ[var_name]
+    except KeyError:
+        error_msg = "Set the %s environment variable" % var_name
+        raise ImproperlyConfigured(error_msg)
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'audite_db',
-        'USER': 'audite',
-        'PASSWORD': 'audite',
+        'NAME': get_env_variable('AUDITE_DB_NAME'),
+        'USER': get_env_variable('AUDITE_DB_USER'),
+        'PASSWORD': get_env_variable('AUDITE_DB_PASSWORD'),
         'HOST': 'localhost',
         'PORT': '', 
     }
@@ -125,11 +132,3 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
-
-# method for get environment variables
-def get_env_variable(var_name):
-    try:
-        return os.environ[var_name]
-    except KeyError:
-        error_msg = "Set the %s environment variable" % var_name
-        raise ImproperlyConfigured(error_msg)
