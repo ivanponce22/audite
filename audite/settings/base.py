@@ -36,6 +36,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #audite apps
+    'audite.apps.index',
+    'audite.apps.songs',
+    'audite.apps.users_profile',
 ]
 
 MIDDLEWARE = [
@@ -82,9 +86,9 @@ def get_env_variable(var_name):
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': get_env_variable('AUDITE_DB_NAME'),
-        'USER': get_env_variable('AUDITE_DB_USER'),
-        'PASSWORD': get_env_variable('AUDITE_DB_PASSWORD'),
+        'NAME': 'audite_db', #get_env_variable("AUDITE_DB_NAME"),
+        'USER': 'audite', #get_env_variable("AUDITE_DB_USER"),
+        'PASSWORD': 'audite', #get_env_variable("AUDITE_DB_PASSWORD"),
         'HOST': 'localhost',
         'PORT': '', 
     }
