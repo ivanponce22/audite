@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ["SECRET_KEY_AUDITE"] #'q#3!ydesb0=hrt14_)pn3kzr512kaualjcb%e3*_jd(pg!y+0^'
+SECRET_KEY = os.environ["SECRET_KEY_AUDITE"] 
 
 
 ALLOWED_HOSTS = []
@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'audite.apps.users_profile',
     #celery for notifications
     'djcelery',
+    #algolia search
+    'django.contrib.algoliasearch',
 ]
 
 #Configurations for API
@@ -65,6 +67,12 @@ BROKER_URL = 'redis://redis:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
+#Configurations for Algolia
+ALGOLIA = {
+    'APPLICATION_ID': os.environ["ALGOLIA_APP_AUDITE"],
+    'API_KEY': os.environ["ALGOLIA_PASS_AUDITE"]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -147,9 +155,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 #Configurations for mail
 DEFAULT_FROM_EMAIL = 'no-reply@audite.tk'
-EMAIL_HOST = os.environ["EMAIL_HOST_AUDITE"] #'smtp.sendgrid.net'
-EMAIL_HOST_USER = os.environ["EMAIL_USER_AUDITE"] #'audite-app'
-EMAIL_HOST_PASSWORD = os.environ["EMAIL_PASS_AUDITE"] #'audits-app-mail-pass-22'
+EMAIL_HOST = os.environ["EMAIL_HOST_AUDITE"] 
+EMAIL_HOST_USER = os.environ["EMAIL_USER_AUDITE"] 
+EMAIL_HOST_PASSWORD = os.environ["EMAIL_PASS_AUDITE"] 
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
