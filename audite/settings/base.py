@@ -44,12 +44,19 @@ INSTALLED_APPS = [
     # Login via Google and GitHub
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
+    #for API
+    'rest_framework',
     #audite apps
     'audite.apps.index',
     'audite.apps.songs',
     'audite.apps.users_profile',
 
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGE_SIZE': 10
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
