@@ -20,7 +20,7 @@ class Artist(models.Model):
     # Attributes - Optional
     picture = models.ImageField(upload_to=upload_image, height_field=400, width_field=400, blank=True, null=True)
     # Object Manager
-    objects = managers.ProfileManager()
+    objects = managers.ArtistManager()
     # Custom Properties
 
     # Methods
@@ -47,7 +47,7 @@ class Album(models.Model):
     # Attributes - Optional
     genre = models.CharField(max_length=60, blank=True, null=True)
     # Object Manager
-    objects = managers.ProfileManager()
+    objects = managers.AlbumManager()
     # Custom Properties
     # Methods
     # Meta and String
@@ -73,7 +73,7 @@ class Song (models.Model):
     duration = models.IntegerField(default=0)
     calification = models.IntegerField(default=0)
     # Object Manager
-    objects = managers.ProfileManager()
+    objects = managers.SongManager()
     # Custom Properties
 
     # Methods

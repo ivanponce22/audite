@@ -2,5 +2,11 @@
 from django.db import models
  
  
-class ProfileManager(models.Manager):
+class ArtistManager(models.Manager):
+    pass
+
+class AlbumManager(models.Manager):
+    pass
+
+class SongManager(models.Manager):
     pass
