@@ -12,10 +12,12 @@ router.register(r'songs', SongViewSet)
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^api/', include(router.urls)),
     #url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
 
     #apps
     url(r'^', include('audite.apps.index.urls')),
-    url(r'^api/', include(router.urls)),
+    url(r'^', include('audite.apps.songs.urls')),
+    
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

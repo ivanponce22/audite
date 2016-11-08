@@ -1,14 +1,12 @@
 from django.conf.urls import url, include
-from rest_framework import routers
-from . import views
 
-router = routers.DefaultRouter()
-router.register(r'artists', views.ArtistViewSet)
-router.register(r'albumes', views.AlbumViewSet)
-router.register(r'songs', views.SongViewSet)
+from .views import SongsListView, ArtistListView, ArtistDetailView
+
 
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    url(r'^songs/$', SongsListView.as_view(), name='songs'),
+    url(r'^artists/$', ArtistListView.as_view(), name='artists'),
+    url(r'^artist/(?P<artist_name_slug>[\w-]+)/$', ArtistDetailView.as_view(), name='artist_detail'),
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

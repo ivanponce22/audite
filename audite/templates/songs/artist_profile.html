@@ -1,0 +1,92 @@
+    {% extends "base.html" %} 
+
+    {% block head_title %}Audite · Artists{% endblock %}
+
+    {% block content %}
+        <!-- Introduction Row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">{{object.name}}
+                    <small>It's Nice to Meet You!</small>
+                </h1>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="col-lg-2">
+                    <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
+                </div>
+                <div class="col-lg-10">
+                    <div class="jumbotron">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint, explicabo dolores ipsam aliquam inventore corrupti eveniet quisquam quod totam laudantium repudiandae obcaecati ea consectetur debitis velit facere nisi expedita vel?
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr/>
+        <!-- Songs -->
+        <div class="col-lg-12">
+            <table class="table table-condensed ">
+                <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>Name</th>
+                        <th>Album</th>
+                        <th>Duration</th>
+                        <th>Calification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for song in songs %}
+                    <tr>
+                        <td><a id="google_login" href="/accounts/google/login" class="btn btn-info btn-xs">Add +</a></td>
+                        <td>{{song}}</td>
+                        <td>{{song.album.name}}</td>
+                        <td>{{song.get_duration}}</td>
+                        <td>{{song.calification}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <br/>
+        </div>
+
+
+        
+        <!--albums-->
+        <h3>Albums</h3>
+        <hr/>
+        <div class="col-lg-12">
+            {% for album in albums %}
+                <div class="well">
+                <h4>{{album}}<small>&nbsp;({{album.year}})</small></h4>
+                    <table class="table table-condensed ">
+                        <thead>
+                            <tr>
+                                <th class="col-md-1">&nbsp;</th>
+                                <th class="col-md-1">&nbsp;</th>
+                                <th class="col-md-8">Name</th>
+                                <th class="col-md-1">Duration</th>
+                                <th class="col-md-1">Calification</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for song_alb in album.get_songs %}
+                            <tr>
+                                <td><a id="google_login" href="/accounts/google/login" class="btn btn-info btn-xs">Add +</a></td>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{song_alb }}</td>
+                                <td>{{song_alb.get_duration}}</td>
+                                <td>{{song_alb.calification}}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            {% endfor %}
+        </div>
+
+
+        
+    {% endblock %}

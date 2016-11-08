@@ -1,11 +1,11 @@
 from django.db import models
-
+import time
 # Create your models here.
 
 from . import managers
 
 def upload_image(instance, filename):
-    return 'artits/%s/%s' % (instance.username, filename)
+    return 'artits/%s/%s' % (filename)
 
 
 class Artist(models.Model):
@@ -13,7 +13,6 @@ class Artist(models.Model):
     Model for song's artist
     '''
 
-    # Relations
     # Attributes - Mandatory
     name = models.CharField(max_length=60)
     name_slug = models.SlugField(max_length=50, blank=True, null=True)
@@ -21,9 +20,20 @@ class Artist(models.Model):
     picture = models.ImageField(upload_to=upload_image, height_field=400, width_field=400, blank=True, null=True)
     # Object Manager
     objects = managers.ArtistManager()
-    # Custom Properties
 
     # Methods
+
+    def save(self, *args, **kwargs):
+        self.name_slug = slugify(self.name)
+        super(self.__class__, self).save(*args, **kwargs)
+
+    def get_songs(self):
+        return Song.objects.filter(album__artist=self)
+
+    def get_albums(self):
+        return Album.objects.filter(artist=self)
+
+
     # Meta and String
     class Meta:
         verbose_name = "Artist"
@@ -48,13 +58,16 @@ class Album(models.Model):
     genre = models.CharField(max_length=60, blank=True, null=True)
     # Object Manager
     objects = managers.AlbumManager()
-    # Custom Properties
+
     # Methods
+    def get_songs(self):
+        return Song.objects.filter(album=self)
+
     # Meta and String
     class Meta:
         verbose_name = "Album"
         verbose_name_plural = "Albums"
-        ordering = ("name",)
+        ordering = ("-year", "name")
  
     def __str__(self):
         return self.name
@@ -77,6 +90,8 @@ class Song (models.Model):
     # Custom Properties
 
     # Methods
+    def get_duration(self):
+        return time.strftime("%M:%S", time.gmtime(self.duration))
 
     # Meta and String
     class Meta:
