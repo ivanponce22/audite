@@ -55,6 +55,7 @@
             <button type="submit" class="btn btn-success">Sign in</button>
           </form>-->
           <div class="navbar-form navbar-right">
+          <a id="logout" href="/accounts/logout">·<strong>Your Playlists</strong>·&nbsp;</a>| &nbsp;
           {% if user.is_authenticated %}
             <a id="logout" href="/accounts/logout" class="btn btn-success">Logout</a>
           {% else %} 

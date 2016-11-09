@@ -8,6 +8,7 @@
             <div class="col-lg-12">
                 <h1 class="page-header">{{object.name}}
                     <small>It's Nice to Meet You!</small>
+                    <a id="favourite" href="" class="btn btn-info btn-xs">Favourite +</a>
                 </h1>
             </div>
 
@@ -39,7 +40,15 @@
                 <tbody>
                 {% for song in songs %}
                     <tr>
-                        <td><a id="google_login" href="/accounts/google/login" class="btn btn-info btn-xs">Add +</a></td>
+                        <td>
+                            <div class="dropdown">
+                                <button id="google_login" href="/accounts/google/login" type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs">Add&nbsp;<span class="caret"></span></button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Action</a></li>
+                                </ul>
+                            </div>
+                        </td>
                         <td>{{song}}</td>
                         <td>{{song.album.name}}</td>
                         <td>{{song.get_duration}}</td>
@@ -73,7 +82,15 @@
                         <tbody>
                         {% for song_alb in album.get_songs %}
                             <tr>
-                                <td><a id="google_login" href="/accounts/google/login" class="btn btn-info btn-xs">Add +</a></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button id="google_login" href="/accounts/google/login" type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs">Add&nbsp;<span class="caret"></span></button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li><a href="#">Action</a></li>
+                                            <li><a href="#">Action</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
                                 <td>{{ forloop.counter }}</td>
                                 <td>{{song_alb }}</td>
                                 <td>{{song_alb.get_duration}}</td>

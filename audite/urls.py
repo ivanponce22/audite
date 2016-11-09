@@ -18,6 +18,7 @@ urlpatterns = [
     #apps
     url(r'^', include('audite.apps.index.urls')),
     url(r'^', include('audite.apps.songs.urls')),
+    url(r'^', include('audite.apps.users_profile.urls')),
     
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

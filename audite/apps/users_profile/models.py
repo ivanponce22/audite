@@ -22,7 +22,15 @@ class Profile(models.Model):
     # Object Manager
     objects = managers.ProfileManager()
     # Custom Properties
+    
     # Methods
+    def get_favourite_artists (self):
+        return self.favourite_artists.all()
+
+    def get_playlists(self):
+        return Playlist.objects.filter(user=self)
+
+
     # Meta and String
     class Meta:
         verbose_name = "Profile"
@@ -42,10 +50,16 @@ class Playlist(models.Model):
     name = models.CharField(max_length=60)
     name_slug = models.SlugField(max_length=50, blank=True, null=True)
     creation_date = models.DateField(auto_now_add=True)
-    # Attributes - Optional
     # Object Manager
     objects = managers.PlaylistManager()
+    
     # Methods
+    def get_duration(self):
+        time_duration = 0
+        for song in self.songs.all():
+            time_duration = time_duration + song.duration
+        return time.strftime("%H:%M:%S", time.gmtime(duration))
+
     # Meta and String
     class Meta:
         verbose_name = "Playlist"
