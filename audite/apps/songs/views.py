@@ -1,5 +1,7 @@
 from django.shortcuts import render
 
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from audite.apps.songs.models import Artist, Album, Song
 from audite.apps.users_profile.models import Playlist
 from django.views.generic import DetailView, View
@@ -12,6 +14,8 @@ class ArtistViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows artists to be viewed or edited.
     """
+    permission_classes = (IsAuthenticated,)
+
     queryset = Artist.objects.all().order_by('name')
     serializer_class = ArtistSerializer
 
@@ -19,6 +23,8 @@ class AlbumViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows albumes to be viewed or edited.
     """
+    permission_classes = (IsAuthenticated,)
+
     queryset = Album.objects.all().order_by('name')
     serializer_class = AlbumSerializer
 
@@ -26,6 +32,8 @@ class SongViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows songs to be viewed or edited.
     """
+    permission_classes = (AllowAny,)
+
     queryset = Song.objects.all().order_by('calification')
     serializer_class = SongSerializer
 
