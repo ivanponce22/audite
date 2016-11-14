@@ -2,6 +2,10 @@
 
 {% block head_title %}Audite · Playlist{% endblock %}
 
+{% block head_javascript %}
+    <script src="https://js.pusher.com/3.2/pusher.min.js"></script>
+{% endblock %}
+
 {% block head_css %}
     <style type="text/css">
         .playlist_container{
@@ -75,5 +79,23 @@
                 </div>
             </div>
         {% endfor %}
+
+{% endblock %}
+
+{% block footer_javascript %}
+    <script>
+
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('412c427ad63fe092e9d7', {
+          encrypted: true
+        });
+
+        var channel = pusher.subscribe('channel_{{user.id}}');
+        channel.bind('add_song', function(data) {
+          alert(data.message);
+        });
+    </script>
 
 {% endblock %}

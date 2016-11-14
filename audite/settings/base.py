@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 from os.path import abspath, dirname, join, normpath
 from django.core.exceptions import ImproperlyConfigured
+import pusher
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -155,6 +156,13 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+#Pusher configuration
+
+PUSHER_APP_ID = os.environ["PUSHER_APP_ID"]
+PUSHER_KEY_ID = os.environ["PUSHER_KEY_ID"] 
+PUSHER_SECRET = os.environ["PUSHER_SECRET"]
+
 
 #Configurations for mail
 DEFAULT_FROM_EMAIL = 'no-reply@audite.tk'

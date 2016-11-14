@@ -14,7 +14,7 @@
             </div>
         </div>
 
-
+    <div class="song_added"></div>
     <table class="table table-condensed ">
         <thead>
             <tr>
@@ -35,8 +35,17 @@
                         <button href="/accounts/google/login" type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs">Add&nbsp;<span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Action</a></li>
+                            {% if user.is_authenticated %}
+                                {% for list in playlists%}
+                                    <li class="item-playlist text-center">
+                                        <a href="#" onClick="addSong({{list.id}}, {{song.id}});">
+                                            {{list.name}}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <li class="item-playlist text-center">Please make login</li>
+                            {% endif %}
                         </ul>
                     </div>
                 </td>
@@ -57,5 +66,22 @@
        </tbody>
     </table>
 
+
+{% endblock %}
+
+
+{% block footer_javascript %}
+
+<script type="text/javascript">
+    function addSong(playlist, song) {
+        console.log(playlist)
+        console.log(song)
+        console.log("/add_song/" + playlist+ "/" + song);
+        $.get( "/add_song/" + playlist+ "/" + song, function( data ) {
+          $( ".song_added" ).html( data );
+          alert( data );
+        });
+    }
+</script>
 
 {% endblock %}

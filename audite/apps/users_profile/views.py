@@ -5,7 +5,14 @@ from audite.apps.users_profile.models import Playlist, Profile
 from audite.apps.users_profile.forms import PlaylistForm
 from audite.apps.songs.models import Song, Artist
 
+from django.http import HttpResponse
+from django.conf import settings
+import pusher
+
 # Create your views here.
+
+
+pusher_client = pusher.Pusher(app_id=str(settings.PUSHER_APP_ID),key=str(settings.PUSHER_KEY_ID) ,secret=str(settings.PUSHER_SECRET) ,ssl=True)
 
 class PlaylistCreateView(CreateView):
     model = Playlist
@@ -44,12 +51,12 @@ class PlaylistDetailView(DetailView):
 
 #agregar a la lista
 class AddSongToPlaylist(View):
-
     def get(self, request, *args, **kwargs):
         song = Song.objects.get(id=self.kwargs['song_id'])
         playlist = Playlist.objects.get(id=self.kwargs['playlist_id'])
         playlist.songs.add(song)
         playlist.save()
+        pusher_client.trigger('channel_'+str(self.request.user.id), 'add_song', {'message': 'song '+song.title+' added to playlist '+playlist.name})
         return HttpResponse("Added!")
 
 

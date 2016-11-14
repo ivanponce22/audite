@@ -44,8 +44,13 @@
                             <div class="dropdown">
                                 <button id="google_login" href="/accounts/google/login" type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs">Add&nbsp;<span class="caret"></span></button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Action</a></li>
+                                    {% if user.is_authenticated %}
+                                        {% for list in playlists%}
+                                            <li class="item-playlist text-center">{{list.name}}</li>
+                                        {% endfor %}
+                                    {% else %}
+                                        <li class="item-playlist text-center">Please make login</li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </td>
@@ -104,8 +109,13 @@
                                 <div class="dropdown">
                                     <button href="/accounts/google/login" type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs">Add&nbsp;<span class="caret"></span></button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                        <li><a href="#">Action</a></li>
-                                        <li><a href="#">Action</a></li>
+                                        {% if user.is_authenticated %}
+                                            {% for list in playlists%}
+                                                <li class="item-playlist text-center">{{list.name}}</li>
+                                            {% endfor %}
+                                        {% else %}
+                                            <li class="item-playlist text-center">Please make login</li>
+                                        {% endif %}
                                     </ul>
                                 </div>
                             </td>
@@ -127,7 +137,4 @@
                 </div>
             {% endfor %}
         </div>
-
-
-        
     {% endblock %}

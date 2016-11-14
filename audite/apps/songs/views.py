@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from audite.apps.songs.models import Artist, Album, Song
+from audite.apps.users_profile.models import Playlist
 from django.views.generic import DetailView, View
 from django.views.generic.list import ListView
 from audite.apps.songs.serializers import ArtistSerializer, AlbumSerializer, SongSerializer
@@ -36,6 +37,8 @@ class SongsListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(SongsListView, self).get_context_data(**kwargs)
+        if self.request.user.is_authenticated():
+            context['playlists'] = Playlist.objects.filter(user = self.request.user)
         return context
 
 
@@ -59,4 +62,6 @@ class ArtistDetailView(DetailView):
         context = super(ArtistDetailView, self).get_context_data(**kwargs)
         context['albums'] = Album.objects.filter(artist=self.object)
         context['songs'] = Song.objects.filter(album__artist=self.object)
+        if self.request.user.is_authenticated():
+            context['playlists'] = Playlist.objects.filter(user = self.request.user)
         return context
