@@ -31,8 +31,8 @@ class PlayListAllView(ListView):
     def get_context_data(self, **kwargs):
         context = {}
         profile_user = list(Profile.objects.filter(user = self.request.user))
+        context['object_list'] = Playlist.objects.filter(user = self.request.user)
         if(len(profile_user)>0):
-            context['object_list'] = Playlist.objects.filter(user = profile_user[0])
             context['favourite_artists'] = profile_user[0].get_favourite_artists()
         return context
 

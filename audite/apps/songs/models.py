@@ -82,6 +82,18 @@ class Album(models.Model):
     def get_songs(self):
         return Song.objects.filter(album=self)
 
+    def get_duration(self):
+        total_time = 0
+        for song in self.get_songs():
+            total_time = total_time + song.duration
+        return time.strftime("%H:%M:%S", time.gmtime(total_time))
+
+    def get_calification(self):
+        total_calification = 0
+        for song in self.get_songs():
+            total_calification = total_calification + song.calification
+        return int(total_calification/len(self.get_songs()))
+
     # Meta and String
     class Meta:
         verbose_name = "Album"

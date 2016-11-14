@@ -34,7 +34,7 @@
                         <th>Name</th>
                         <th>Album</th>
                         <th>Duration</th>
-                        <th>Calification</th>
+                        <th class="text-center">Calification</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,7 +52,13 @@
                         <td>{{song}}</td>
                         <td>{{song.album.name}}</td>
                         <td>{{song.get_duration}}</td>
-                        <td>{{song.calification}}</td>
+                        <td class="calification text-center">
+                            {% with ''|center:song.calification as range %}
+                                {% for i in range%}
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                {% endfor %}
+                            {% endwith %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -68,37 +74,55 @@
         <div class="col-lg-12">
             {% for album in albums %}
                 <div class="well">
+                <div class="col-lg-10">
                 <h4>{{album}}<small>&nbsp;({{album.year}})</small></h4>
-                    <table class="table table-condensed ">
-                        <thead>
-                            <tr>
-                                <th class="col-md-1">&nbsp;</th>
-                                <th class="col-md-1">&nbsp;</th>
-                                <th class="col-md-8">Name</th>
-                                <th class="col-md-1">Duration</th>
-                                <th class="col-md-1">Calification</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {% for song_alb in album.get_songs %}
-                            <tr>
-                                <td>
-                                    <div class="dropdown">
-                                        <button id="google_login" href="/accounts/google/login" type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs">Add&nbsp;<span class="caret"></span></button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                            <li><a href="#">Action</a></li>
-                                            <li><a href="#">Action</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{song_alb }}</td>
-                                <td>{{song_alb.get_duration}}</td>
-                                <td>{{song_alb.calification}}</td>
-                            </tr>
+                <td class="calification">
+                    {% with ''|center:album.get_calification as range %}
+                        {% for i in range%}
+                            <i class="fa fa-star" aria-hidden="true"></i>
                         {% endfor %}
-                        </tbody>
-                    </table>
+                    {% endwith %}
+                </td>
+                </div>
+                <div class="col-lg-2">
+                    <strong>Duration: </strong>{{album.get_duration}}
+                </div>
+                <table class="table table-condensed ">
+                    <thead>
+                        <tr>
+                            <th class="col-md-1">&nbsp;</th>
+                            <th class="col-md-1">&nbsp;</th>
+                            <th class="col-md-8">Name</th>
+                            <th class="col-md-1">Duration</th>
+                            <th class="col-md-1">Calification</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for song_alb in album.get_songs %}
+                        <tr>
+                            <td>
+                                <div class="dropdown">
+                                    <button href="/accounts/google/login" type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-info dropdown-toggle btn-xs">Add&nbsp;<span class="caret"></span></button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="#">Action</a></li>
+                                        <li><a href="#">Action</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{song_alb }}</td>
+                            <td>{{song_alb.get_duration}}</td>
+                            <td class="calification text-center">
+                                {% with ''|center:song_alb.calification as range %}
+                                    {% for i in range%}
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    {% endfor %}
+                                {% endwith %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
                 </div>
             {% endfor %}

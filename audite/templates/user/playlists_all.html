@@ -2,6 +2,15 @@
 
 {% block head_title %}Audite · Playlist{% endblock %}
 
+{% block head_css %}
+    <style type="text/css">
+        .playlist_container{
+            height: 260px;
+        }
+    </style>
+    
+{% endblock %}
+
 {% block content %}
     
     <!-- Introduction Row -->
@@ -14,6 +23,57 @@
             </div>
         </div>
 
-        {{user.}}
+        <hr/>
+
+        {% for play_list in object_list %}
+            <div class="col-lg-6 col-sm-12">
+                <div class="well playlist_container">
+                    <div class="col-lg-8">
+                        <h4>{{play_list.name}}<small>&nbsp;({{play_list.creation_date}})</small></h4>
+                        <td>
+                            <small>
+                            {% with ''|center:play_list.get_calification as range %}
+                                {% for i in range%}
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                {% endfor %}
+                            {% endwith %}
+                            </small>
+                        </td>
+                    </div>
+                    <div class="col-lg-4 text-right">
+                        Duration: {{play_list.get_duration}}
+                    </div>
+                    <table class="table table-condensed ">
+                        <thead>
+                            <tr>
+                                <th class="col-md-1">&nbsp;</th>
+                                <th class="col-md-8">Name</th>
+                                <th class="col-md-1">Artist</th>
+                                <th class="col-md-2">Calification</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for song in play_list.songs.all|slice:":3"  %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{song }}</td>
+                                <td>{{song.album.artist}}</td>
+                                <td class="calification text-center">
+                                {% with ''|center:song.calification as range %}
+                                    {% for i in range%}
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    {% endfor %}
+                                {% endwith %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="navbar-right">
+                        <button type="button" class="btn btn-info dropdown-toggle btn-xs">See more&nbsp;<span class="glyphicon glyphicon-eye-open"></span></button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
 
 {% endblock %}
