@@ -1,11 +1,13 @@
 from django.db import models
+from django.template.defaultfilters import slugify
+from PIL import Image
 import time
 # Create your models here.
 
 from . import managers
 
-def upload_image(instance, filename):
-    return 'artits/%s/%s' % (filename)
+def upload_image(filename):
+    return 'audite/media/artits/%s' % (filename)
 
 
 class Artist(models.Model):
@@ -17,15 +19,28 @@ class Artist(models.Model):
     name = models.CharField(max_length=60)
     name_slug = models.SlugField(max_length=50, blank=True, null=True)
     # Attributes - Optional
-    picture = models.ImageField(upload_to=upload_image, height_field=400, width_field=400, blank=True, null=True)
+    picture = models.ImageField(
+        upload_to="artists", 
+        blank=True, 
+        null=True, 
+        editable=True,)
     # Object Manager
     objects = managers.ArtistManager()
 
     # Methods
-
     def save(self, *args, **kwargs):
         self.name_slug = slugify(self.name)
+
         super(self.__class__, self).save(*args, **kwargs)
+
+        if self.picture:
+            image = Image.open(self.picture)
+            (width, height) = image.size     
+            size = (200, 200)
+            image = image.resize(size, Image.ANTIALIAS)
+            image.save(self.picture.path)
+
+        
 
     def get_songs(self):
         return Song.objects.filter(album__artist=self)
@@ -60,6 +75,10 @@ class Album(models.Model):
     objects = managers.AlbumManager()
 
     # Methods
+    def save(self, *args, **kwargs):
+        self.name_slug = slugify(self.name)
+        super(self.__class__, self).save(*args, **kwargs)
+
     def get_songs(self):
         return Song.objects.filter(album=self)
 
@@ -90,6 +109,10 @@ class Song (models.Model):
     # Custom Properties
 
     # Methods
+    def save(self, *args, **kwargs):
+        self.name_slug = slugify(self.title)
+        super(self.__class__, self).save(*args, **kwargs)
+
     def get_duration(self):
         return time.strftime("%M:%S", time.gmtime(self.duration))
 

@@ -1,7 +1,7 @@
 from django.views.generic import DetailView, UpdateView, View, CreateView, ListView
 from django.shortcuts import render
 
-from audite.apps.users_profile.models import Playlist
+from audite.apps.users_profile.models import Playlist, Profile
 from audite.apps.users_profile.forms import PlaylistForm
 from audite.apps.songs.models import Song, Artist
 
@@ -30,8 +30,10 @@ class PlayListAllView(ListView):
 
     def get_context_data(self, **kwargs):
         context = {}
-        context['object_list'] = self.request.user.profile.get_playlists()
-        context['favourite_artists'] = self.request.user.userprofile.get_favourite_artists()
+        profile_user = list(Profile.objects.filter(user = self.request.user))
+        if(len(profile_user)>0):
+            context['object_list'] = Playlist.objects.filter(user = profile_user[0])
+            context['favourite_artists'] = profile_user[0].get_favourite_artists()
         return context
 
 class PlaylistDetailView(DetailView):

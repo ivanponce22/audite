@@ -14,7 +14,7 @@
 
             <div class="col-lg-12">
                 <div class="col-lg-2">
-                    <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
+                    <img class="img-circle img-responsive img-center" src="{% if object.picture %} /media/{{object.picture}} {% else %} http://placehold.it/200x200 {% endif %}" alt="">
                 </div>
                 <div class="col-lg-10">
                     <div class="jumbotron">
