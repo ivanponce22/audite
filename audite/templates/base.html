@@ -73,6 +73,10 @@
         .calification{
             font-size: 10px;
         }
+        .item-bar{
+            background-color: rgba(0,0,0,.1);
+            color: #ccc;
+        }
     </style>
     {% block head_css %}{% endblock %}
     {% block head_javascript %}{% endblock %}
@@ -104,7 +108,7 @@
             <button type="submit" class="btn btn-success">Sign in</button>
           </form>-->
           <div class="navbar-form navbar-right">
-          <a id="logout" href="/accounts/logout">·<strong>Your Playlists</strong>·&nbsp;</a>| &nbsp;
+          <a href="/playlists_all">·<strong>Your Playlists</strong>·&nbsp;</a>| &nbsp;
           {% if user.is_authenticated %}
             {{user}}&nbsp;
             <a id="logout" href="/accounts/logout" class="btn btn-danger">Logout</a>
@@ -124,7 +128,23 @@
     <!-- Page Content -->
     
     
+    
     <div class="container">
+
+        <div class="row">
+            <div class="btn-group btn-group-justified" role="group">
+                <div class="btn-group" role="group">
+                    <a type="button" class="btn btn-default item-bar" href="/songs">SONGS</a>
+                </div>
+                <div class="btn-group" role="group">
+                    <a type="button" class="btn btn-default item-bar" href="/artists">ARTISTS</a>
+                </div>
+                <div class="btn-group" role="group">
+                    <a type="button" class="btn btn-default item-bar" href="/playlists_all">PLAYLIST</a>
+                </div>
+            </div>
+            <br/>
+        </div>
 
         {% block content %}
         {% endblock %}

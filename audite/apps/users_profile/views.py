@@ -14,12 +14,13 @@ import pusher
 
 pusher_client = pusher.Pusher(app_id=str(settings.PUSHER_APP_ID),key=str(settings.PUSHER_KEY_ID) ,secret=str(settings.PUSHER_SECRET) ,ssl=True)
 
+#crear playlist
 class PlaylistCreateView(CreateView):
     model = Playlist
     form_class = PlaylistForm
     template_name = 'user/create_playlist.html'
 
-    def get(self):
+    def get(self,request, *args, **kwargs):
         self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
@@ -29,7 +30,7 @@ class PlaylistCreateView(CreateView):
     def get_success_url(self):
         return '/playlists_all/'
 
-
+#listar todas las playlist del usuario
 class PlayListAllView(ListView):
 
     model = Playlist

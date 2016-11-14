@@ -27,6 +27,12 @@
             </div>
         </div>
 
+         <div class="col-sm-12 text-right">
+            <br/>
+            <a type="button" class="btn btn-info" href="/new_playlist">NEW PLAYLIST&nbsp;<i class="fa fa-list-ol" aria-hidden="true"></i></a>
+            <br/>
+         </div>
+
         <hr/>
 
         {% for play_list in object_list %}
@@ -36,11 +42,13 @@
                         <h4>{{play_list.name}}<small>&nbsp;({{play_list.creation_date}})</small></h4>
                         <td>
                             <small>
-                            {% with ''|center:play_list.get_calification as range %}
-                                {% for i in range%}
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                {% endfor %}
-                            {% endwith %}
+                            {% if play_list.songs.all|length > 0 %}
+                                {% with ''|center:play_list.get_calification as range %}
+                                    {% for i in range%}
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    {% endfor %}
+                                {% endwith %}
+                            {% endif %}
                             </small>
                         </td>
                     </div>
