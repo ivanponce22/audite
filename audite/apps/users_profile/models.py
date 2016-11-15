@@ -7,6 +7,8 @@ import time
 
 from . import managers
 
+from audite.apps.users_profile.tasks import send_email
+
 # Create your models here.
 
 def upload_image(instance, filename):
@@ -81,6 +83,12 @@ class Playlist(models.Model):
  
     def __str__(self):
         return self.name
+
+def send_email_notification(sender, **kwargs):
+    playlist = kwargs["instance"]
+    send_email.delay(playlist.user.name, playlist.name, playlist.user.email)
+
+post_save.connect(send_email_notification, sender=Playlist)
 
 def create_profile(sender, **kwargs):
     user = kwargs["instance"]

@@ -1,3 +1,5 @@
+import os
+
 from celery.decorators import task
 from django.template import loader
 from django.conf import settings
