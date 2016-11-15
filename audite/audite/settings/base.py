@@ -24,7 +24,7 @@ DJANGO_ROOT = dirname(dirname(dirname(abspath(__file__))))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'q#3!ydesb0=hrt14_)pn3kzr512kaualjcb%e3*_jd(pg!y+0^'#os.environ["SECRET_KEY_AUDITE"] 
+SECRET_KEY = os.environ["SECRET_KEY_AUDITE"] 
 
 
 ALLOWED_HOSTS = []
@@ -74,8 +74,8 @@ CELERY_RESULT_SERIALIZER = 'json'
 
 #Configurations for Algolia
 ALGOLIA = {
-    'APPLICATION_ID': 'AL4HOXR86I',#os.environ["ALGOLIA_APP_AUDITE"],
-    'API_KEY': '26688ad6d0e1d9f6147aee904fec62c8'#os.environ["ALGOLIA_PASS_AUDITE"]
+    'APPLICATION_ID': os.environ["ALGOLIA_APP_AUDITE"],
+    'API_KEY': os.environ["ALGOLIA_PASS_AUDITE"]
 }
 
 MIDDLEWARE = [
@@ -130,9 +130,9 @@ WSGI_APPLICATION = 'audite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'audite',#os.environ["AUDITE_DB_NAME"],
-        'USER': 'audite',#os.environ["AUDITE_DB_USER"],
-        'PASSWORD': 'audite',#os.environ["AUDITE_DB_PASSWORD"],
+        'NAME': os.environ["AUDITE_DB_NAME"],
+        'USER': os.environ["AUDITE_DB_USER"],
+        'PASSWORD': os.environ["AUDITE_DB_PASSWORD"],
         'HOST': 'localhost',
         'PORT': '', 
     }
@@ -166,9 +166,9 @@ PUSHER_SECRET = '785f0b988570ce86208f'#os.environ["PUSHER_SECRET"]
 
 #Configurations for mail
 DEFAULT_FROM_EMAIL = 'no-reply@audite.tk'
-EMAIL_HOST = 'smtp.sendgrid.net'#os.environ["EMAIL_HOST_AUDITE"] 
-EMAIL_HOST_USER = 'audite-app'#os.environ["EMAIL_USER_AUDITE"] 
-EMAIL_HOST_PASSWORD = 'audits-app-mail-pass-22'#os.environ["EMAIL_PASS_AUDITE"] 
+EMAIL_HOST = os.environ["EMAIL_HOST_AUDITE"] 
+EMAIL_HOST_USER = os.environ["EMAIL_USER_AUDITE"] 
+EMAIL_HOST_PASSWORD = os.environ["EMAIL_PASS_AUDITE"] 
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
