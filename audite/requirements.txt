@@ -15,7 +15,7 @@ django-pusherable==0.1.0
 django-social-auth==0.7.28
 djangorestframework==3.5.2
 gunicorn==19.6.0
-httplib2==0.9.2
+httplib2==0.19.0
 idna==2.1
 kombu==3.0.37
 Markdown==2.6.7
